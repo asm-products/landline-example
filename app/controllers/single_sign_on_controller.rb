@@ -1,4 +1,5 @@
 class SingleSignOnController < ApplicationController
+  require 'addressable/uri'
   after_filter :set_access_control_headers
 
   def sso
@@ -11,7 +12,7 @@ class SingleSignOnController < ApplicationController
       nonce: nonce,
       team: ENV["LANDLINE_TEAM"],
       id: current_user.id,
-      avatar_url: gravatar_url,
+      avatar_url: gravatar_url(current_user),
       username: current_user.email,
       email: current_user.email,
       real_name: current_user.email,
@@ -45,7 +46,7 @@ class SingleSignOnController < ApplicationController
     User.find_by(email: decode_payload["user"][0])
   end
 
-  def gravatar_url
+  def gravatar_url(current_user)
     "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(current_user.email.downcase)}"
   end
 

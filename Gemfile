@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails', :groups => [:development, :test]
 
+gem 'addressable'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'jbuilder', '~> 2.0'
